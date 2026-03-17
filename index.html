@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Grocery Store Survey Visualization System</title>
+  <link rel="stylesheet" href="style.css" />
+  <script src="https://d3js.org/d3.v7.min.js"></script>
+</head>
+<body>
+  <header class="page-header">
+    <div>
+      <h1>Grocery Store Survey Visualization System</h1>
+      <p>Coordinated D3.js views for exploratory analysis of grocery shopping behavior.</p>
+    </div>
+    <div class="header-actions">
+      <button id="resetAllBtn">Reset All</button>
+    </div>
+  </header>
+
+  <section class="controls-card">
+    <div class="control-group">
+      <label for="genderFilter">Gender</label>
+      <select id="genderFilter"></select>
+    </div>
+    <div class="control-group">
+      <label for="occupationFilter">Occupation</label>
+      <select id="occupationFilter"></select>
+    </div>
+    <div class="control-group">
+      <label for="paymentFilter">Payment Method</label>
+      <select id="paymentFilter"></select>
+    </div>
+    <div class="control-group range-group">
+      <label for="ageRange">Maximum Age <span id="ageValue"></span></label>
+      <input type="range" id="ageRange" min="18" max="80" value="80" step="1" />
+    </div>
+  </section>
+
+  <section class="kpi-grid">
+    <div class="kpi-card"><span class="kpi-label">Visible Records</span><span class="kpi-value" id="kpiCount">0</span></div>
+    <div class="kpi-card"><span class="kpi-label">Avg Purchase</span><span class="kpi-value" id="kpiPurchase">$0</span></div>
+    <div class="kpi-card"><span class="kpi-label">Avg Income</span><span class="kpi-value" id="kpiIncome">$0</span></div>
+    <div class="kpi-card"><span class="kpi-label">Active Chain Filter</span><span class="kpi-value" id="kpiChain">All</span></div>
+  </section>
+
+  <main class="dashboard-grid">
+    <section class="viz-card viz-large">
+      <div class="card-head">
+        <h2>Scatter Plot: Income vs Purchase Amount</h2>
+        <p>Brush to select shoppers. Points are colored by store chain.</p>
+      </div>
+      <div id="scatter" class="viz"></div>
+    </section>
+
+    <section class="viz-card">
+      <div class="card-head">
+        <h2>Bar Chart: Average Purchase by Chain</h2>
+        <p>Click a bar to filter the entire dashboard to a chain.</p>
+      </div>
+      <div id="bar" class="viz"></div>
+    </section>
+
+    <section class="viz-card">
+      <div class="card-head">
+        <h2>Box Plot: Purchase Distribution by Payment Method</h2>
+        <p>Compare spread, median, and outliers across payment methods.</p>
+      </div>
+      <div id="box" class="viz"></div>
+    </section>
+  </main>
+
+  <section class="report-card">
+    <h2>Project Write-up</h2>
+    <div class="report-grid">
+      <article>
+        <h3>Three Visualization Tasks</h3>
+        <ol>
+          <li><strong>Relationship and outlier task:</strong> Identify whether shoppers with higher income also spend more per trip and detect unusual customers with exceptionally high or low spending.</li>
+          <li><strong>Comparison task:</strong> Compare average purchase behavior across grocery chains to see which chains attract higher-spending customers.</li>
+          <li><strong>Distribution task:</strong> Examine how purchase amount varies across payment methods and whether some methods show wider spread or more outliers.</li>
+        </ol>
+      </article>
+
+      <article>
+        <h3>Visual Representations and Why</h3>
+        <ul>
+          <li><strong>Scatter plot</strong> for Income vs PurchaseAmount because it reveals correlation, density, clusters, and outliers in two quantitative attributes.</li>
+          <li><strong>Bar chart</strong> for average PurchaseAmount by Chain because chain is categorical and average spending is easy to compare with aligned bars.</li>
+          <li><strong>Box plot</strong> for PurchaseAmount by PaymentMethod because it summarizes distribution, median, quartiles, spread, and outliers better than a pie chart or simple counts.</li>
+        </ul>
+      </article>
+
+      <article>
+        <h3>Interaction Design</h3>
+        <ul>
+          <li><strong>Brushing</strong> on the scatter plot to select a subset of shoppers and coordinate updates in the bar and box plots.</li>
+          <li><strong>Click filtering</strong> on the bar chart to filter all views to a selected store chain.</li>
+          <li><strong>Dropdown filters</strong> for gender, occupation, and payment method, plus an <strong>age slider</strong> for range filtering.</li>
+          <li><strong>Hover tooltips</strong> for detailed values on marks.</li>
+          <li><strong>Reset button</strong> to remove all active interactions quickly.</li>
+        </ul>
+      </article>
+
+      <article>
+        <h3>Coordination</h3>
+        <p>All views are linked. A brush selection in the scatter plot updates the bar chart, box plot, and summary cards. Clicking a chain bar filters the scatter and box views. Global controls affect every chart simultaneously.</p>
+      </article>
+    </div>
+  </section>
+
+  <footer class="footer-note">
+    <p>Dataset source used: <code>grocerystoresurvey.csv</code>. A copy is also provided as <code>cars.csv</code> because your prompt requested that filename.</p>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
